@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Item, Input, Card } from "native-base";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const LogoImage = require("../images/tsubagram.logo.png");
 
 export default class Login extends Component {
+  changeScreen = () => {
+    this.props.navigation.navigate("Register");
+  };
   render() {
     return (
       <View style={styles.container}>
