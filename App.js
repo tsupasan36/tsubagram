@@ -1,12 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+
+import AuthNavigation from "./navigations/AuthNavigation";
+import "react-native-gesture-handler";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>We will create instagram for two weeks</Text>
-    </View>
-  );
+  return <AuthNavigation />;
 }
 
 const styles = StyleSheet.create({
