@@ -1,12 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { encode, decode } from "base-64";
+
+import AuthNavigation from "./navigations/AuthNavigation";
+import "react-native-gesture-handler";
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+if (!global.atob) {
+  global.atob = decode;
+}
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>We will create instagram for two weeks</Text>
-    </View>
-  );
+  return <AuthNavigation />;
 }
 
 const styles = StyleSheet.create({
