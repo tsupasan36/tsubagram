@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { encode, decode } from "base-64";
+import IndexNavigation from "./navigations/IndexNavigation";
 
-import AuthNavigation from "./navigations/AuthNavigation";
 import "react-native-gesture-handler";
 
 if (!global.btoa) {
@@ -13,7 +13,7 @@ if (!global.atob) {
 }
 
 export default function App() {
-  return <AuthNavigation />;
+  return <IndexNavigation />;
 }
 
 const styles = StyleSheet.create({
