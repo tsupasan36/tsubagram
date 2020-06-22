@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import {
+  AntDesign,
+  MaterialCommunityIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
+
 import Home from "../pages/Home";
+import Search from "../pages/Search";
+import Favorite from "../pages/Favorite";
+import Profile from "../pages/Profile";
+
+import { HomeNavigation } from "./HomeNavigation";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -19,17 +29,37 @@ export default class TabNavigation extends Component {
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <MaterialCommunityIcons name="home" size={24} color="black" />
             ),
           }}
         />
-        {/* <Tab.Screen
-          name="Notifications"
-          component={Notifications}
+        <Tab.Screen
+          name="Search"
+          component={Search}
           options={{
-            tabBarLabel: "Updates",
+            tabBarLabel: "Search",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="bell" color={color} size={26} />
+              <FontAwesome5 name="search" size={24} color="black" />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Camera"
+          component={HomeNavigation}
+          options={{
+            tabBarLabel: "Camera",
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="pluscircleo" size={24} color="black" />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Favorite"
+          component={Favorite}
+          options={{
+            tabBarLabel: "Favorite",
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="hearto" size={24} color="black" />
             ),
           }}
         />
@@ -39,30 +69,10 @@ export default class TabNavigation extends Component {
           options={{
             tabBarLabel: "Profile",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="account" color={color} size={26} />
+              <MaterialCommunityIcons name="account" color="black" size={26} />
             ),
           }}
         />
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarLabel: "Profile",
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="account" color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarLabel: "Profile",
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="account" color={color} size={26} />
-            ),
-          }}
-        /> */}
       </Tab.Navigator>
     );
   }
