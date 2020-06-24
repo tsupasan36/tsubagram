@@ -9,16 +9,19 @@ import {
 
 import { Camera } from "expo-camera";
 import * as ImageManipulator from "expo-image-manipulator";
+import * as ImagePicker from "expo-image-picker";
 
 class CameraCapture extends Component {
   state = {
     hasPermission: null,
     type: Camera.Constants.Type.back,
     image: null,
+    libraryPermission: null,
   };
 
   componentDidMount() {
     this.getPermission();
+    this.getLibraryPermission();
   }
 
   getPermission = async () => {
@@ -26,24 +29,45 @@ class CameraCapture extends Component {
     this.setState({ hasPermission: status === "granted" });
   };
 
+  getLibraryPermission = async () => {
+    const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+    this.setState({ libraryPermission: status === "granted" });
+  };
+
   captureImage = async () => {
     const image = await this.camera.takePictureAsync();
 
     if (!image.cancelled) {
-      const resize = await ImageManipulator.manipulateAsync(image.uri, [], {
-        compress: 0.1,
-        format: "jpeg",
-      });
-
-      this.setState({
-        image: resize,
-      });
+      this.resize(image.uri);
     }
   };
 
   changeScreen = () => {
     this.props.navigation.navigate("PostScreen", {
       imageUri: this.state.image.uri,
+    });
+  };
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      this.resize(result.uri);
+    }
+  };
+
+  resize = async (uri) => {
+    const resize = await ImageManipulator.manipulateAsync(uri, [], {
+      compress: 0.1,
+      format: "jpeg",
+    });
+
+    this.setState({
+      image: resize,
     });
   };
 
@@ -134,7 +158,7 @@ class CameraCapture extends Component {
               }}
               onPress={this.captureImage}
             ></TouchableOpacity>
-            <TouchableOpacity onPress={this.changeScreen}>
+            <TouchableOpacity onPress={this.pickImage}>
               <SimpleLineIcons
                 name="picture"
                 size={40}

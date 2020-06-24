@@ -12,6 +12,7 @@ import Favorite from "../pages/Favorite";
 import Profile from "../pages/Profile";
 
 import { HomeNavigation } from "./HomeNavigation";
+import { StatusBar } from "react-native";
 
 const Tab = createMaterialBottomTabNavigator();
 
