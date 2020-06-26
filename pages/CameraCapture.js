@@ -43,6 +43,7 @@ class CameraCapture extends Component {
   };
 
   changeScreen = () => {
+    console.log("test");
     this.props.navigation.navigate("PostScreen", {
       imageUri: this.state.image.uri,
     });

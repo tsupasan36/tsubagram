@@ -1,12 +1,18 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { SafeAreaView, Text, FlatList } from "react-native";
+import firebase from "../configs/Firebase";
 
 class Favorite extends Component {
+  state = {
+    favoriteRef: firebase.firestore().collection("Favorites"),
+  };
+
   render() {
     return (
-      <View>
+      <SafeAreaView>
         <Text>this is Favorite</Text>
-      </View>
+        <FlatList />
+      </SafeAreaView>
     );
   }
 }

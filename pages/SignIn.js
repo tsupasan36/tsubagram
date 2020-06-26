@@ -92,6 +92,7 @@ class SignIn extends Component {
     return this.state.userRef.doc(createdUser.user.uid).set({
       name: createdUser.user.displayName,
       avatar: createdUser.user.photoURL,
+      email: createdUser.user.email,
       uid: createdUser.user.uid,
       bio: "",
       photo: createdUser.user.photoURL,
