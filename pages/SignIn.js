@@ -26,7 +26,6 @@ class SignIn extends Component {
 
   emailHandler = (input) => {
     this.setState({ email: input });
-    c;
   };
 
   passwordHandler = (input) => {

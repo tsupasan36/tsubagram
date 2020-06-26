@@ -1,21 +1,19 @@
 import React, { Component } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
+
 import SignIn from "../pages/SignIn";
 import LogIn from "../pages/LogIn";
-import { StatusBar } from "react-native";
+import Home from "../pages/Home";
 
 const Stack = createStackNavigator();
 class AuthNavigation extends Component {
   render() {
     return (
-      <NavigationContainer>
-        <StatusBar />
-        <Stack.Navigator initialRouteName="Register" headerMode="none">
-          <Stack.Screen name="Register" component={SignIn} />
-          <Stack.Screen name="Login" component={LogIn} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Stack.Navigator initialRouteName="Register" headerMode="none">
+        <Stack.Screen name="Register" component={SignIn} />
+        <Stack.Screen name="Login" component={LogIn} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
     );
   }
 }
