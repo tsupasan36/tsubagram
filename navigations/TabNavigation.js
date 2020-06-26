@@ -11,8 +11,13 @@ import Search from "../pages/Search";
 import Favorite from "../pages/Favorite";
 import Profile from "../pages/Profile";
 
-import { HomeNavigation } from "./HomeNavigation";
-import { StatusBar } from "react-native";
+import {
+  CameraNavigation,
+  HomeNavigation,
+  ProfileNavigation,
+  SearchNavigation,
+  FavoriteNavigation,
+} from "./HomeNavigation";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -26,7 +31,7 @@ export default class TabNavigation extends Component {
       >
         <Tab.Screen
           name="Home"
-          component={Home}
+          component={HomeNavigation}
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color }) => (
@@ -36,7 +41,7 @@ export default class TabNavigation extends Component {
         />
         <Tab.Screen
           name="Search"
-          component={Search}
+          component={SearchNavigation}
           options={{
             tabBarLabel: "Search",
             tabBarIcon: ({ color }) => (
@@ -46,7 +51,7 @@ export default class TabNavigation extends Component {
         />
         <Tab.Screen
           name="Camera"
-          component={HomeNavigation}
+          component={CameraNavigation}
           options={{
             tabBarLabel: "Camera",
             tabBarIcon: ({ color }) => (
@@ -56,7 +61,7 @@ export default class TabNavigation extends Component {
         />
         <Tab.Screen
           name="Favorite"
-          component={Favorite}
+          component={FavoriteNavigation}
           options={{
             tabBarLabel: "Favorite",
             tabBarIcon: ({ color }) => (
@@ -66,7 +71,7 @@ export default class TabNavigation extends Component {
         />
         <Tab.Screen
           name="Profile"
-          component={Profile}
+          component={ProfileNavigation}
           options={{
             tabBarLabel: "Profile",
             tabBarIcon: ({ color }) => (

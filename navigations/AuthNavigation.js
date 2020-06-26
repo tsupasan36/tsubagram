@@ -12,7 +12,6 @@ class AuthNavigation extends Component {
       <Stack.Navigator initialRouteName="Register" headerMode="none">
         <Stack.Screen name="Register" component={SignIn} />
         <Stack.Screen name="Login" component={LogIn} />
-        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     );
   }
