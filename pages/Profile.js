@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
   StatusBar,
+  FlatList,
 } from "react-native";
 import firebase from "../configs/Firebase";
 import { connect } from "react-redux";
@@ -14,10 +15,14 @@ import { Thumbnail, Button } from "native-base";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import GalleryItem from "../components/GalleryItem";
+
 class Profile extends Component {
   state = {
-    usersRef: firebase.firestore().collection("user"),
+    usersRef: firebase.firestore().collection("users"),
     users: [],
+    postsRef: firebase.firestore().collection("posts"),
+    posts: [],
   };
 
   componentDidMount() {
@@ -26,6 +31,13 @@ class Profile extends Component {
         return doc.data();
       });
       this.setState({ users: users });
+    });
+
+    this.state.postsRef.get().then((snapshot) => {
+      const posts = snapshot.docs.map((doc) => {
+        return doc.data();
+      });
+      this.setState({ posts: posts });
     });
   }
 
@@ -39,6 +51,7 @@ class Profile extends Component {
   render() {
     const uri =
       "https://facebook.github.io/react-native/docs/assets/favicon.png";
+
     return (
       <SafeAreaView
         style={{ flex: 1, backgroundColor: "rgba(185, 121, 252, 0.5)" }}
@@ -70,6 +83,11 @@ class Profile extends Component {
         </View>
         <View style={styles.gallery}>
           <Text>gallery</Text>
+          <FlatList
+            numColumns={3}
+            data={this.state.posts}
+            renderItem={({ item }) => <GalleryItem gallery={item} />}
+          />
         </View>
       </SafeAreaView>
     );
