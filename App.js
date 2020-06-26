@@ -5,6 +5,10 @@ import IndexNavigation from "./navigations/IndexNavigation";
 
 import "react-native-gesture-handler";
 
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import rootReducers from "./reducers";
+
 if (!global.btoa) {
   global.btoa = encode;
 }
@@ -12,8 +16,14 @@ if (!global.atob) {
   global.atob = decode;
 }
 
+const store = createStore(rootReducers);
+
 export default function App() {
-  return <IndexNavigation />;
+  return (
+    <Provider store={store}>
+      <IndexNavigation />
+    </Provider>
+  );
 }
 
 const styles = StyleSheet.create({
