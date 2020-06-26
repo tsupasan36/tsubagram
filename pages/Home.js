@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import firebase from "../configs/Firebase";
 
+import { connect } from "react-redux";
+
 import {
   Icon,
   Container,
@@ -36,7 +38,41 @@ class Home extends Component {
     });
   }
 
+  toggleLike = (post) => {
+    const userId = this.props.auth.uid;
+
+    post.likes.includes(userId) ? this.unlike(post) : this.like(post);
+  };
+
+  unlike = async (post) => {
+    const uid = this.props.auth.uid;
+    await this.state.postsRef.doc(post.id).update({
+      likes: firebase.firestore.FieldValue.arrayRemove(uid),
+    });
+    const posts = [...this.state.posts];
+    const idx = posts.indexOf(post);
+    const newPost = posts[idx].likes.filter((like) => like !== uid);
+    console.log(newPost);
+    posts[idx].likes = newPost;
+
+    this.setState({ posts });
+  };
+
+  like = async (post) => {
+    const uid = this.props.auth.uid;
+    await this.state.postsRef.doc(post.id).update({
+      likes: firebase.firestore.FieldValue.arrayUnion(uid),
+    });
+    const posts = [...this.state.posts];
+    const idx = posts.indexOf(post);
+
+    posts[idx].likes.push(uid);
+
+    this.setState({ posts });
+  };
+
   render() {
+    const uid = this.props.auth.uid;
     return (
       <View>
         <FlatList
@@ -74,11 +110,15 @@ class Home extends Component {
                 <Text>{item.postDescription}</Text>
               </CardItem>
               <CardItem>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.toggleLike(item);
+                  }}
+                >
                   <AntDesign
-                    name="hearto"
+                    name={item.likes.includes(uid) ? "heart" : "hearto"}
                     size={32}
-                    color="black"
+                    color={item.likes.includes(uid) ? "red" : "black"}
                     style={{ marginRight: 10 }}
                   />
                 </TouchableOpacity>
@@ -107,4 +147,8 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+  auth: state.user.auth,
+});
+
+export default connect(mapStateToProps)(Home);
